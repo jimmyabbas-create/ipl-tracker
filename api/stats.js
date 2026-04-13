@@ -10,7 +10,6 @@ function fetchPage(url) {
       },
       timeout: 15000,
     }, (res) => {
-      // Follow redirects
       if (res.statusCode >= 300 && res.statusCode < 400 && res.headers.location) {
         return fetchPage(res.headers.location).then(resolve).catch(reject);
       }
@@ -23,12 +22,8 @@ function fetchPage(url) {
   });
 }
 
-// Parse CricTracker team total runs page
 function parseCricTracker(html) {
   const teams = [];
-  // CricTracker table has rows: No | Team | R | 100s | 50s | Wkts
-  // The table is rendered in Next.js but the SSR HTML contains it
-  
   const teamNames = [
     'Sunrisers Hyderabad', 'Chennai Super Kings', 'Royal Challengers Bengaluru',
     'Royal Challengers Bangalore', 'Mumbai Indians', 'Kolkata Knight Riders',
@@ -36,7 +31,6 @@ function parseCricTracker(html) {
     'Lucknow Super Giants'
   ];
 
-  // Try table row pattern
   const rowRegex = /<tr[^>]*>([\s\S]*?)<\/tr>/gi;
   let match;
   while ((match = rowRegex.exec(html)) !== null) {
@@ -67,44 +61,7 @@ function parseCricTracker(html) {
   return teams;
 }
 
-// Parse points table to get matches played
-function parsePointsTable(html) {
-  const data = {};
-  const teamAbbrs = {
-    'RR': 'Rajasthan Royals', 'PBKS': 'Punjab Kings', 'RCB': 'Royal Challengers Bengaluru',
-    'DC': 'Delhi Capitals', 'GT': 'Gujarat Titans', 'LSG': 'Lucknow Super Giants',
-    'SRH': 'Sunrisers Hyderabad', 'MI': 'Mumbai Indians', 'CSK': 'Chennai Super Kings',
-    'KKR': 'Kolkata Knight Riders'
-  };
-  
-  const rowRegex = /<tr[^>]*>([\s\S]*?)<\/tr>/gi;
-  let match;
-  while ((match = rowRegex.exec(html)) !== null) {
-    const row = match[1];
-    const cells = [];
-    const cellRegex = /<t[dh][^>]*>([\s\S]*?)<\/t[dh]>/gi;
-    let cellMatch;
-    while ((cellMatch = cellRegex.exec(row)) !== null) {
-      cells.push(cellMatch[1].replace(/<[^>]+>/g, '').trim());
-    }
-    for (const [abbr, full] of Object.entries(teamAbbrs)) {
-      if (cells.some(c => c === abbr || c.includes(full))) {
-        // Look for a small number (1-14) that could be matches played
-        for (let i = 0; i < cells.length; i++) {
-          const val = parseInt(cells[i]);
-          if (val >= 1 && val <= 14 && cells[i].length <= 2) {
-            data[full] = val;
-            break;
-          }
-        }
-      }
-    }
-  }
-  return data;
-}
-
 module.exports = async (req, res) => {
-  // CORS headers
   res.setHeader('Access-Control-Allow-Origin', '*');
   res.setHeader('Access-Control-Allow-Methods', 'GET');
   res.setHeader('Cache-Control', 's-maxage=1800, stale-while-revalidate=3600');
@@ -130,21 +87,6 @@ module.exports = async (req, res) => {
     }
   }
 
-  // Try to get matches played from points table
-  let matchesPlayed = {};
-  try {
-    const ptHtml = await fetchPage('https://www.crictracker.com/t20/ipl-indian-premier-league/points-table/');
-    matchesPlayed = parsePointsTable(ptHtml);
-  } catch (e) {
-    console.error('Points table fetch failed:', e.message);
-  }
-
-  // Merge matches played
-  teams = teams.map(t => ({
-    ...t,
-    matches: matchesPlayed[t.team] || null,
-  }));
-
   teams.sort((a, b) => b.runs - a.runs);
 
   if (teams.length >= 5) {
@@ -156,22 +98,22 @@ module.exports = async (req, res) => {
     });
   }
 
-  // Fallback: return cached data
+  // Fallback
   return res.status(200).json({
     success: true,
     source: 'cached',
     updated: '2026-04-12T23:59:00Z',
     data: [
-      { team: 'Royal Challengers Bengaluru', runs: 894, matches: 4 },
-      { team: 'Sunrisers Hyderabad', runs: 802, matches: 4 },
-      { team: 'Chennai Super Kings', runs: 755, matches: 4 },
-      { team: 'Gujarat Titans', runs: 741, matches: 4 },
-      { team: 'Mumbai Indians', runs: 731, matches: 4 },
-      { team: 'Delhi Capitals', runs: 707, matches: 4 },
-      { team: 'Rajasthan Royals', runs: 690, matches: 4 },
-      { team: 'Lucknow Super Giants', runs: 647, matches: 4 },
-      { team: 'Punjab Kings', runs: 598, matches: 4 },
-      { team: 'Kolkata Knight Riders', runs: 562, matches: 4 },
+      { team: 'Royal Challengers Bengaluru', runs: 894 },
+      { team: 'Sunrisers Hyderabad', runs: 802 },
+      { team: 'Chennai Super Kings', runs: 755 },
+      { team: 'Gujarat Titans', runs: 741 },
+      { team: 'Mumbai Indians', runs: 731 },
+      { team: 'Delhi Capitals', runs: 707 },
+      { team: 'Rajasthan Royals', runs: 690 },
+      { team: 'Lucknow Super Giants', runs: 647 },
+      { team: 'Punjab Kings', runs: 598 },
+      { team: 'Kolkata Knight Riders', runs: 562 },
     ],
   });
 };
