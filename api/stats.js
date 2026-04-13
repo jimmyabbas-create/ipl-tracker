@@ -98,7 +98,6 @@ module.exports = async (req, res) => {
     });
   }
 
-  // Fallback
   return res.status(200).json({
     success: true,
     source: 'cached',
