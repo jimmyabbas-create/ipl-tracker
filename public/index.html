@@ -27,31 +27,29 @@
   .ts{text-align:center;font-size:11px;color:var(--dim);margin-bottom:18px;font-family:'JetBrains Mono',monospace;letter-spacing:.3px}
   .ts .live{color:var(--green);font-weight:600}
   .ts .cached{color:var(--gold);font-weight:600}
-  .ts .err{color:var(--red);font-weight:600}
   .card{background:var(--card);border:1px solid var(--border);border-radius:14px;overflow:hidden;box-shadow:0 6px 32px rgba(0,0,0,.45)}
   .hdr{display:flex;padding:12px 14px;font-size:9px;font-weight:700;letter-spacing:2px;text-transform:uppercase;color:var(--dim);border-bottom:1px solid var(--border);background:rgba(255,255,255,.015)}
-  .hdr .c1{width:42px;text-align:center}.hdr .c2{flex:1}.hdr .c3{width:90px;text-align:right}
-  .row{display:flex;align-items:center;padding:13px 14px;transition:background .15s;animation:fadeIn .3s ease both}
+  .hdr .c1{width:42px;text-align:center}.hdr .c2{flex:1}.hdr .c3{width:100px;text-align:right}
+  .row{display:flex;align-items:center;padding:14px 14px;transition:background .15s;animation:fadeIn .3s ease both}
   .row:active{background:rgba(255,255,255,.04)}
   .row:not(:last-child){border-bottom:1px solid rgba(255,255,255,.035)}
   @keyframes fadeIn{from{opacity:0;transform:translateY(6px)}to{opacity:1;transform:translateY(0)}}
   .rk{width:42px;text-align:center;font-family:'JetBrains Mono',monospace;font-size:12px;font-weight:600;color:var(--dim)}
-  .medal{display:inline-flex;align-items:center;justify-content:center;width:26px;height:26px;border-radius:7px;font-size:11px}
+  .medal{display:inline-flex;align-items:center;justify-content:center;width:26px;height:26px;border-radius:7px;font-size:11px;font-weight:700;font-family:'JetBrains Mono',monospace}
   .r1{background:rgba(251,191,36,.12);color:var(--gold)}.r2{background:rgba(148,163,184,.1);color:var(--silver)}.r3{background:rgba(217,119,6,.1);color:var(--bronze)}
   .tm{flex:1;display:flex;align-items:center;gap:10px}
-  .badge{display:flex;align-items:center;justify-content:center;width:32px;height:32px;border-radius:8px;font-size:10px;font-weight:800;letter-spacing:.3px;flex-shrink:0}
-  .name{font-size:13px;font-weight:500;line-height:1.2}
-  .name small{display:block;font-size:10px;color:var(--dim);font-weight:400;margin-top:1px}
-  .rc{width:90px;display:flex;align-items:center;gap:8px;justify-content:flex-end}
-  .bar{width:50px;height:4px;border-radius:2px;background:rgba(255,255,255,.05);overflow:hidden;flex-shrink:0}
+  .badge{display:flex;align-items:center;justify-content:center;width:34px;height:34px;border-radius:9px;font-size:10px;font-weight:800;letter-spacing:.3px;flex-shrink:0}
+  .name{font-size:14px;font-weight:500;line-height:1.3}
+  .rc{width:100px;display:flex;align-items:center;gap:10px;justify-content:flex-end}
+  .bar{width:55px;height:4px;border-radius:2px;background:rgba(255,255,255,.05);overflow:hidden;flex-shrink:0}
   .fill{height:100%;border-radius:2px;background:linear-gradient(90deg,var(--accent),var(--gold));transition:width .6s ease}
-  .rv{font-family:'JetBrains Mono',monospace;font-weight:700;font-size:15px;color:#fff;min-width:35px;text-align:right}
+  .rv{font-family:'JetBrains Mono',monospace;font-weight:700;font-size:16px;color:#fff;min-width:40px;text-align:right}
   .skel .sh{border-radius:6px;background:rgba(255,255,255,.04);animation:shim 1.5s infinite}
   @keyframes shim{0%{opacity:.4}50%{opacity:.7}100%{opacity:.4}}
   .rbtn{display:block;margin:18px auto 0;padding:8px 20px;background:rgba(249,115,22,.1);border:1px solid rgba(249,115,22,.25);border-radius:9px;color:var(--accent);font-family:'Outfit',sans-serif;font-size:12px;font-weight:600;cursor:pointer;letter-spacing:.3px}
   .rbtn:active{background:rgba(249,115,22,.2)}
   footer{text-align:center;margin-top:22px;font-size:10px;color:var(--dim);font-weight:300;line-height:1.7;letter-spacing:.2px}
-  @media(min-width:540px){.w{padding:40px 24px 56px}h1{font-size:34px}.row{padding:15px 18px}.badge{width:36px;height:36px;font-size:11px}.name{font-size:14px}}
+  @media(min-width:540px){.w{padding:40px 24px 56px}h1{font-size:34px}.row{padding:16px 18px}.badge{width:36px;height:36px;font-size:11px}.name{font-size:15px}.rv{font-size:17px}}
 </style>
 </head>
 <body>
@@ -83,16 +81,16 @@ var TEAM_META={
 };
 
 var FALLBACK=[
-  {team:'Royal Challengers Bengaluru',runs:894,matches:4},
-  {team:'Sunrisers Hyderabad',runs:802,matches:4},
-  {team:'Chennai Super Kings',runs:755,matches:4},
-  {team:'Gujarat Titans',runs:741,matches:4},
-  {team:'Mumbai Indians',runs:731,matches:4},
-  {team:'Delhi Capitals',runs:707,matches:4},
-  {team:'Rajasthan Royals',runs:690,matches:4},
-  {team:'Lucknow Super Giants',runs:647,matches:4},
-  {team:'Punjab Kings',runs:598,matches:4},
-  {team:'Kolkata Knight Riders',runs:562,matches:4}
+  {team:'Royal Challengers Bengaluru',runs:894},
+  {team:'Sunrisers Hyderabad',runs:802},
+  {team:'Chennai Super Kings',runs:755},
+  {team:'Gujarat Titans',runs:741},
+  {team:'Mumbai Indians',runs:731},
+  {team:'Delhi Capitals',runs:707},
+  {team:'Rajasthan Royals',runs:690},
+  {team:'Lucknow Super Giants',runs:647},
+  {team:'Punjab Kings',runs:598},
+  {team:'Kolkata Knight Riders',runs:562}
 ];
 
 function meta(name){
@@ -104,7 +102,7 @@ function meta(name){
 function skeleton(){
   var h='<div class="hdr"><div class="c1">#</div><div class="c2">Team</div><div class="c3">Runs</div></div>';
   for(var i=0;i<10;i++){
-    h+='<div class="row skel" style="animation-delay:'+i*0.04+'s"><div class="rk"><div class="sh" style="width:20px;height:12px;margin:0 auto"></div></div><div class="tm"><div class="sh" style="width:32px;height:32px;border-radius:8px;flex-shrink:0"></div><div class="sh" style="width:'+(100+Math.random()*80)+'px;height:12px"></div></div><div class="rc"><div class="sh" style="width:50px;height:12px"></div></div></div>';
+    h+='<div class="row skel" style="animation-delay:'+i*0.04+'s"><div class="rk"><div class="sh" style="width:20px;height:12px;margin:0 auto"></div></div><div class="tm"><div class="sh" style="width:34px;height:34px;border-radius:9px;flex-shrink:0"></div><div class="sh" style="width:'+(100+Math.random()*80)+'px;height:14px"></div></div><div class="rc"><div class="sh" style="width:55px;height:14px"></div></div></div>';
   }
   document.getElementById('card').innerHTML=h;
 }
@@ -131,11 +129,10 @@ function render(data,src,ts){
     var rkH;
     if(rank<=3) rkH='<span class="medal r'+rank+'">'+rank+'</span>';
     else rkH=rank;
-    var mp=t.matches?t.matches+' match'+(t.matches!==1?'es':'')+' played':'';
     h+='<div class="row" style="animation-delay:'+i*0.04+'s">';
     h+='<div class="rk">'+rkH+'</div>';
     h+='<div class="tm"><span class="badge" style="background:'+m.bg+';color:'+m.c+'">'+m.k+'</span>';
-    h+='<span class="name">'+t.team+(mp?'<small>'+mp+'</small>':'')+'</span></div>';
+    h+='<span class="name">'+t.team+'</span></div>';
     h+='<div class="rc"><span class="bar"><span class="fill" style="width:'+pct+'%"></span></span>';
     h+='<span class="rv">'+t.runs.toLocaleString()+'</span></div></div>';
   }
@@ -147,7 +144,6 @@ function load(){
   document.getElementById('status').innerHTML='<span class="cached">●</span> Fetching latest data…';
   document.getElementById('rbtn').style.display='none';
 
-  // The API endpoint — change this to your deployed URL
   var apiUrl=window.location.origin+'/api/stats';
 
   fetch(apiUrl).then(function(r){return r.json();}).then(function(j){
